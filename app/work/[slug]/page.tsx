@@ -6,6 +6,7 @@ import Label from "@/components/Label";
 import Link from "next/link";
 import UnderlineOnHover from "@/components/Server/UnderlineOnHover";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 export default function CaseStudyPage() {
   const currentNavTheme = useNavThemeValue();
@@ -34,10 +35,13 @@ export default function CaseStudyPage() {
       </h1>
 
       <div className="relative aspect-video w-full bg-cool-gray overflow-hidden mb-12">
-        <img 
+        <Image 
           src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop" 
           alt={title}
-          className="w-full h-full object-cover mix-blend-luminosity opacity-80"
+          fill
+          priority
+          sizes="(max-width: 1200px) 100vw, 1200px"
+          className="object-cover mix-blend-luminosity opacity-80"
         />
       </div>
 

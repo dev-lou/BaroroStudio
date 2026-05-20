@@ -7,6 +7,7 @@ import Link from "next/link";
 import UnderlineOnHover from "@/components/Server/UnderlineOnHover";
 import CursorPlane from "@/components/CursorPlane";
 import IntersectionObserverPlane from "@/components/IntersectionObserverPlane";
+import Image from "next/image";
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -88,22 +89,22 @@ export default function AboutPage() {
           <Label className="mb-12"><span className="font-light">/</span>&nbsp; BEHIND THE SCENES</Label>
           <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
              <div className="relative overflow-hidden group rounded-lg">
-               <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000&auto=format&fit=crop" className="w-full mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Office"/>
+               <Image src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000&auto=format&fit=crop" width={600} height={400} className="w-full h-auto mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Office"/>
              </div>
              <div className="relative overflow-hidden group rounded-lg">
-               <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop" className="w-full mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Meeting"/>
+               <Image src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop" width={600} height={800} className="w-full h-auto mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Meeting"/>
              </div>
              <div className="relative overflow-hidden group rounded-lg">
-               <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1000&auto=format&fit=crop" className="w-full mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Planning"/>
+               <Image src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1000&auto=format&fit=crop" width={600} height={450} className="w-full h-auto mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Planning"/>
              </div>
              <div className="relative overflow-hidden group rounded-lg">
-               <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000&auto=format&fit=crop" className="w-full mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Coding"/>
+               <Image src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000&auto=format&fit=crop" width={600} height={400} className="w-full h-auto mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Coding"/>
              </div>
              <div className="relative overflow-hidden group rounded-lg">
-               <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=1000&auto=format&fit=crop" className="w-full mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Design"/>
+               <Image src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=1000&auto=format&fit=crop" width={600} height={750} className="w-full h-auto mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Design"/>
              </div>
              <div className="relative overflow-hidden group rounded-lg">
-               <img src="https://images.unsplash.com/photo-1600132806608-231446b2e7af?q=80&w=1000&auto=format&fit=crop" className="w-full mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Studio"/>
+               <Image src="https://images.unsplash.com/photo-1600132806608-231446b2e7af?q=80&w=1000&auto=format&fit=crop" width={600} height={450} className="w-full h-auto mix-blend-luminosity opacity-80 group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 group-hover:scale-105" alt="Studio"/>
              </div>
           </div>
         </div>
