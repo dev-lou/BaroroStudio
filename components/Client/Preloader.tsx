@@ -113,7 +113,7 @@ export default function Preloader() {
                   { label: "About", active: false },
                   { label: "Services", active: false },
                   { label: "Contact", active: false },
-                ].map((item, index) => (
+                ].map((item) => (
                   <div
                     key={item.label}
                     className="flex items-center first:[&>:first-child]:hidden text-[46px] leading-[0.8] font-[470] tracking-[-0.03em] uppercase lg:text-[1.27315vw] lg:leading-[0.85] lg:font-[440] lg:tracking-[-0.01em]"
