@@ -80,6 +80,72 @@ export default function Preloader() {
           {/* Animated Film Grain Overlay */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px] animate-[pulse_2s_infinite]" />
           
+          {/* Header Mock to align with main navigation layout */}
+          <div className="absolute top-0 left-0 right-0 z-[60] flex w-full p-2 max-lg:justify-between lg:grid lg:grid-cols-9 lg:gap-x-[.46296vw] lg:p-[0.46296vw] text-void-black pointer-events-none select-none">
+            {/* Logo */}
+            <div className="col-span-2 h-fit w-fit">
+              <span className="relative inline-block font-[470] text-[20px] tracking-[-0.03em] uppercase leading-none lg:text-[1.35vw] whitespace-nowrap after:content-[''] after:absolute after:left-0 after:right-0 after:top-[48%] after:h-[5px] after:bg-current">
+                Baroro Studio
+              </span>
+            </div>
+
+            {/* Open timings */}
+            <span className="max-lg:hidden col-span-1">
+              <span className="flex items-center text-xs leading-[1.1667] font-[440] tracking-[-0.01em] uppercase xl:text-[0.69444vw]">
+                <span className="inline-block rounded-full p-[0.23148vw] bg-[#6366f1]" />
+                &nbsp;Open&nbsp;(10—6pm)
+              </span>
+            </span>
+
+            {/* Location */}
+            <div className="max-lg:hidden col-span-1">
+              <span className="flex items-center text-xs leading-[1.1667] font-[440] tracking-[-0.01em] uppercase xl:text-[0.69444vw]">
+                ILOILO,PHILIPPINES
+              </span>
+            </div>
+
+            {/* Nav items list */}
+            <div className="col-span-5 flex items-center justify-end gap-[0.28935vw] max-lg:hidden">
+              <div className="flex cursor-default items-center">
+                {[
+                  { label: "Home", active: true },
+                  { label: "Work", active: false },
+                  { label: "About", active: false },
+                  { label: "Services", active: false },
+                  { label: "Contact", active: false },
+                ].map((item, index) => (
+                  <div
+                    key={item.label}
+                    className="flex items-center first:[&>:first-child]:hidden text-[46px] leading-[0.8] font-[470] tracking-[-0.03em] uppercase lg:text-[1.27315vw] lg:leading-[0.85] lg:font-[440] lg:tracking-[-0.01em]"
+                  >
+                    <span className="font-light">/&nbsp;</span>
+                    <span className="flex items-center">
+                      {item.active && (
+                        <span className="inline-block rounded-full bg-[#6366f1] size-8 lg:size-[0.86806vw] shrink-0">&nbsp;</span>
+                      )}
+                      <span>{item.label}</span>
+                    </span>
+                    &nbsp;
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile menu trigger indicator */}
+            <div className="lg:hidden h-[14px] w-13 flex items-center justify-end text-void-black">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 52 14"
+                width="52"
+                height="14"
+                className="fill-current"
+              >
+                <path d="M0 0h52v4H0z" />
+                <path d="M0 10h52v4H0z" />
+              </svg>
+            </div>
+          </div>
+          
           {/* Upper-Left Large Counter Display */}
           <motion.div 
             className="relative z-10 flex flex-col justify-start items-start mt-[8vh]"
