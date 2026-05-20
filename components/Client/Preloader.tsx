@@ -3,54 +3,39 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 export default function Preloader() {
-  const [progress, setProgress] = useState(0);
+  const [fps, setFps] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [logText, setLogText] = useState("INITIALIZING ENGINE...");
 
   useEffect(() => {
-    // Lock scroll on mount
     document.body.style.overflow = "hidden";
 
-    // Smooth progress counter with realistic slow-down near the end
-    let current = 0;
+    // Traditional animation frame pacing simulation (0 to 24 frames)
+    let currentFrame = 0;
     const interval = setInterval(() => {
-      // Stagger speed: fast at first, slow down at 80%, then snap to 100
       let increment = 1;
-      if (current < 50) {
-        increment = Math.floor(Math.random() * 8) + 2;
-      } else if (current < 85) {
-        increment = Math.floor(Math.random() * 4) + 1;
-      } else if (current < 99) {
-        increment = Math.random() > 0.7 ? 1 : 0; // slower pacing
+      
+      // Dynamic easing: starts fast, pauses slightly around keyframes, and snaps to completion
+      if (currentFrame < 8) {
+        increment = Math.random() > 0.2 ? 1 : 0;
+      } else if (currentFrame < 18) {
+        increment = Math.random() > 0.5 ? 1 : 0;
+      } else if (currentFrame < 23) {
+        increment = Math.random() > 0.8 ? 1 : 0; // tension building before finish
       } else {
         increment = 1;
       }
 
-      current = Math.min(current + increment, 100);
-      setProgress(current);
+      currentFrame = Math.min(currentFrame + increment, 24);
+      setFps(currentFrame);
 
-      // Dynamically update terminal logs based on loading progress
-      if (current < 20) {
-        setLogText("LOADING BARORO CORE SYSTEM ENGINE...");
-      } else if (current < 45) {
-        setLogText("INITIALIZING GRAPHICS PIPELINES...");
-      } else if (current < 65) {
-        setLogText("COMPILING CUSTOM SHADERS & VIEWPORTS...");
-      } else if (current < 85) {
-        setLogText("LOADING 3D GEOMETRIES & CHARACTER RIGS...");
-      } else if (current < 99) {
-        setLogText("OPTIMIZING NEON CONTRAST LOGIC...");
-      } else {
-        setLogText("SYSTEM READY. ENJOY THE EXPERIENCE.");
+      if (currentFrame === 24) {
         clearInterval(interval);
-        
-        // Remove scroll lock and trigger exit transitions after a brief delay
         setTimeout(() => {
           setLoading(false);
           document.body.style.overflow = "";
-        }, 800);
+        }, 1000);
       }
-    }, 45);
+    }, 70);
 
     return () => {
       clearInterval(interval);
@@ -61,53 +46,92 @@ export default function Preloader() {
   return (
     <AnimatePresence mode="wait">
       {loading && (
-        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-void-black text-off-white select-none">
-          {/* Main Visual Container */}
-          <div className="relative flex flex-col items-center gap-10">
-            {/* Center Logo with Animated Strikethrough */}
-            <div className="relative font-bold text-[7vw] lg:text-[5vw] uppercase tracking-[-0.04em] leading-none px-4">
-              <span className="opacity-15">BARORO STUDIO</span>
-              <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex items-center">
-                {/* Mask layer showing progress */}
-                <motion.div 
-                  className="h-[2px] bg-flare-red shadow-[0_0_15px_#6366f1]"
-                  style={{ width: `${progress}%` }}
-                  transition={{ ease: "easeOut" }}
-                />
-              </div>
+        <motion.div
+          key="premium-preloader"
+          initial={{ y: "0%" }}
+          exit={{ 
+            y: "-100%",
+            transition: { duration: 1.1, ease: [0.85, 0, 0.15, 1] }
+          }}
+          className="fixed inset-0 z-[9999] flex flex-col justify-between bg-gradient-to-tr from-[#bae6fd] via-[#e0f2fe] to-[#7dd3fc] text-void-black select-none p-6 lg:p-[4vw] overflow-hidden"
+        >
+          {/* Animated Film Grain Overlay */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px] animate-[pulse_2s_infinite]" />
+          
+          {/* High-End Technical Spec Grids */}
+          <div className="absolute inset-0 pointer-events-none border border-void-black/10 m-4 lg:m-[2vw]">
+            {/* Center Grid Crosshair */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+              <div className="w-8 h-[1px] bg-void-black/20" />
+              <div className="h-8 w-[1px] bg-void-black/20 absolute" />
             </div>
+            {/* Corner Coordinates */}
+            <span className="absolute top-4 left-4 font-mono text-[9px] text-void-black/50">SYS.INIT // B_S_2026</span>
+            <span className="absolute top-4 right-4 font-mono text-[9px] text-void-black/50">LAT. 11.0371° N // LON. 122.6398° E</span>
+            <span className="absolute bottom-4 left-4 font-mono text-[9px] text-void-black/50">FPS_TARGET_LOCK: 24.00</span>
+            <span className="absolute bottom-4 right-4 font-mono text-[9px] text-void-black/50">REF.SCALE: 1:1</span>
+          </div>
 
-            {/* Monospace Counters & Console Logs */}
-            <div className="flex flex-col items-center gap-3 font-mono text-[10px] sm:text-xs tracking-wider text-gray-500 uppercase">
-              <div className="flex items-center gap-2">
-                <span className="text-flare-red animate-pulse">●</span>
-                <span>{logText}</span>
-              </div>
-              <div className="text-[24px] sm:text-[32px] font-light text-off-white tracking-widest mt-2">
-                {String(progress).padStart(3, "0")}%
-              </div>
+          {/* Top Status Header */}
+          <div className="relative z-10 flex justify-between items-center w-full font-mono text-[10px] sm:text-xs tracking-[0.25em] text-void-black/70 uppercase border-b border-void-black/10 pb-4">
+            <span className="font-bold text-void-black">BARORO STUDIO</span>
+            <span className="hidden md:inline text-void-black/60">● GMT+8 PASSI CITY</span>
+            <span className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-void-black animate-ping" />
+              COMPILING CELL SEQUENCE
+            </span>
+          </div>
+
+          {/* Central Frame Counter Display */}
+          <div className="relative z-10 flex flex-col justify-center items-start flex-grow my-auto">
+            <div className="relative font-bold text-[14vw] sm:text-[11vw] leading-none tracking-[-0.04em] uppercase font-sans text-void-black">
+              {/* Odometer-like slide in for numbers */}
+              <span className="inline-block relative overflow-hidden h-[1em] align-bottom">
+                <motion.span
+                  key={fps}
+                  initial={{ y: "80%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  transition={{ duration: 0.15, ease: "easeOut" }}
+                  className="inline-block text-[#6366f1]"
+                >
+                  {fps}
+                </motion.span>
+              </span>
+              <span className="text-void-black/30">/</span>
+              <span>24 fps</span>
+            </div>
+            
+            <div className="flex items-center gap-3 font-mono text-[10px] tracking-widest text-void-black/70 mt-4 uppercase">
+              <span className="text-[#6366f1] font-bold">[ {Math.floor((fps / 24) * 100)}% ]</span>
+              <span>RENDER SEQUENCE READY</span>
             </div>
           </div>
 
-          {/* Staggered double-slide-up overlay wipes */}
-          <motion.div 
-            className="absolute inset-0 bg-[#6366f1] z-10 origin-bottom"
-            initial={{ scaleY: 0 }}
-            animate={progress === 100 ? { scaleY: [0, 1, 0], y: [0, 0, "-100%"] } : { scaleY: 0 }}
-            transition={{ 
-              duration: 1.2, 
-              ease: [0.76, 0, 0.24, 1], 
-              times: [0, 0.5, 1],
-              delay: 0.2 
-            }}
-          />
-          <motion.div 
-            className="absolute inset-0 bg-void-black z-20"
-            initial={{ y: "0%" }}
-            animate={progress === 100 ? { y: "-100%" } : { y: "0%" }}
-            transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1], delay: 0.4 }}
-          />
-        </div>
+          {/* Bottom Architectural Progress System */}
+          <div className="relative z-10 w-full flex flex-col gap-4">
+            <div className="relative w-full h-[60px] sm:h-[80px] bg-void-black/5 border border-void-black/10 rounded-sm overflow-hidden p-1.5">
+              {/* Main Progress Block */}
+              <motion.div
+                className="absolute inset-y-1.5 left-1.5 bg-void-black shadow-[0_0_20px_rgba(0,0,0,0.05)]"
+                style={{ width: `calc(${(fps / 24) * 100}% - 12px)` }}
+                transition={{ ease: "easeOut", duration: 0.08 }}
+              />
+              
+              {/* Glowing Trail (Lagging Behind Slightly) */}
+              <motion.div
+                className="absolute inset-y-1.5 left-1.5 bg-[#6366f1]/20 mix-blend-multiply"
+                style={{ width: `calc(${(fps / 24) * 100}% - 12px)` }}
+                transition={{ ease: "easeOut", duration: 0.3 }}
+              />
+            </div>
+            
+            <div className="flex justify-between font-mono text-[9px] tracking-wider text-void-black/60 uppercase">
+              <span>00_BOOT_LOADER</span>
+              <span>STATE: {fps === 24 ? "LAUNCH_READY" : "ACQUIRING_FRAME_RIGS"}</span>
+              <span>24_PLAYBACK</span>
+            </div>
+          </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
