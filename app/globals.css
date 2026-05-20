@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void-black: #050508;
+  --color-off-white: #f0f0f2;
+  --color-flare-red: #6366f1;
+  --color-cool-gray: #18181b;
+
+  --font-weight-regular-plus: 440;
+}
+@layer components {
+  body {
+    font-family: var(--font-denim), sans-serif;
+    background-color: var(--color-cool-gray);
+  }
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+}
+
+@layer utilities {
+  .slash-before {
+    @apply before:font-light before:content-['/\00A0'];
+  }
+}
